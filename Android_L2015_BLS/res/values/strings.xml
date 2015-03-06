@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PFE BLS</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_newApplication">Nouvelle</string>
+    <string name="btn_historiqueApplication">Historique</string>
+    <string name="btn_initialiseChamp">Initialiser</string>
+    <string name="btn_saveFields">Enregister</string>
+    <string name="btn_createApplication">Créer app.</string>
+</resources>
