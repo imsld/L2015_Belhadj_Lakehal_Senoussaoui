@@ -13,6 +13,8 @@ import android.widget.RadioButton;
 
 public class MainActivity extends Activity {
 
+	HistoryFileManager HistFile;
+	
 	Button btn_newApp;
 	Button btn_clearApp;
 	Button btn_HistApp;
@@ -43,8 +45,9 @@ public class MainActivity extends Activity {
 		// associate the button from interface to code
 		initInterface();
 		addButtonClickListner();
+		
 		//Check history file if it exist
-		HistoryFileManager HistFile = new HistoryFileManager();
+		HistFile = new HistoryFileManager();
 		if (!HistFile.checkHistoryFile())
 			btn_HistApp.setEnabled(false);
 	}
@@ -83,6 +86,12 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				if (!HistFile.checkHistoryFile()){
+					HistFile.createEmptyRacine();;
+				}
+				else{
+					HistFile.createEmptyRacine();;
+				}					
 			}
 		});
 	}
