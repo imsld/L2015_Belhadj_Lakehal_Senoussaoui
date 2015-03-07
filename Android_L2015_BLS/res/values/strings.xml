@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="btn_newApplication">Nouvelle</string>
     <string name="btn_historiqueApplication">Historique</string>
-    <string name="btn_initialiseChamp">Initialiser</string>
+    <string name="btn_initialiseChamp">Réinitialiser</string>
     <string name="btn_saveFields">Enregister</string>
     <string name="btn_createApplication">Créer app.</string>
 </resources>
