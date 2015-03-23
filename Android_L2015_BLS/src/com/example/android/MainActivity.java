@@ -37,6 +37,9 @@ public class MainActivity extends Activity {
 	CheckBox cb_Appel;
 	CheckBox cb_Credit;
 
+	String myVersion;
+	int sdkVersion;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,19 +55,32 @@ public class MainActivity extends Activity {
 			btn_HistApp.setEnabled(false);
 	}
 
+	private CharSequence getAPIVersion() {
+		//Getting device OS Version
+		myVersion = android.os.Build.VERSION.RELEASE; // e.g. myVersion := "1.6"
+		sdkVersion = android.os.Build.VERSION.SDK_INT; // e.g. sdkVersion := 8; 				
+		return "API "+ sdkVersion + ", version "+ myVersion +" (local API)";
+	}
+	
 	private void addButtonClickListner() {
 		
 		btn_newApp.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-			}
+				//Getting device OS Version
+				rb_ApiLocal.setText(getAPIVersion());
+				rb_ApiLocal.setActivated(true);
+			}			
 		});
 		
 		btn_clearApp.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				//Getting device OS Version
+				rb_ApiLocal.setText(getAPIVersion());
+				rb_ApiLocal.setActivated(true);
 			}
 		});
 		
