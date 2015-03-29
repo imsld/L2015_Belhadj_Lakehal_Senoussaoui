@@ -119,7 +119,7 @@ public class HistoriqueActivity extends Activity {
 		});
 		
 		//récupération du bouton delete d'un item
-		Button btn_DeleteItem = (Button)findViewById(R.id.buttonDeleteItem);
+		/*Button btn_DeleteItem = (Button)findViewById(R.id.buttonDeleteItem);
 		
 		btn_DeleteItem.setOnClickListener(new OnClickListener() {
 			
@@ -128,7 +128,7 @@ public class HistoriqueActivity extends Activity {
 				// TODO Auto-generated method stub
 				
 			}
-		});
+		});*/
 		
 		/*btn_DeleteItem.setOnClickListener(new OnClickListener() {
 			
