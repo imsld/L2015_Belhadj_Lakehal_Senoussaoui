@@ -1,18 +1,13 @@
 package com.pfe.bls;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.pfe.bls.R;
-import com.pfe.bls.HistoriqueActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -142,37 +137,37 @@ public class MainActivity extends Activity {
 				listInfo.add(edit_AppDescr.getText().toString());
 
 				if (cb_Calc.isChecked())
-					listInfo.add("Cal");
+					listInfo.add(HistFile.KEY_CALCULATRICE);
 				else
 					listInfo.add("0");
 
 				if (cb_Cal.isChecked())
-					listInfo.add("Calc");
+					listInfo.add(HistFile.KEY_CALENDRIER);
 				else
 					listInfo.add("0");
 
 				if (cb_Msg.isChecked())
-					listInfo.add("Msg");
+					listInfo.add(HistFile.KEY_MESSAGERIE);
 				else
 					listInfo.add("0");
 
 				if (cb_Rep.isChecked())
-					listInfo.add("Rep");
+					listInfo.add(HistFile.KEY_REPARTOIRE);
 				else
 					listInfo.add("0");
 
 				if (cb_GeoLoc.isChecked())
-					listInfo.add("GeoLoc");
+					listInfo.add(HistFile.KEY_LOCALISATION);
 				else
 					listInfo.add("0");
 
 				if (cb_Appel.isChecked())
-					listInfo.add("Appel");
+					listInfo.add(HistFile.KEY_APPEL);
 				else
 					listInfo.add("0");
 
 				if (cb_Credit.isChecked())
-					listInfo.add("Credit");
+					listInfo.add(HistFile.KEY_CREDIT);
 				else
 					listInfo.add("0");
 

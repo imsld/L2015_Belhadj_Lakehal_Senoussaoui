@@ -2,15 +2,11 @@ package com.pfe.bls;
 
 import java.util.HashMap;
 
-import org.w3c.dom.Document;
-
-import com.pfe.bls.R;
-import com.pfe.bls.MainActivity;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +17,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.widget.Toast;
 
 public class HistoriqueActivity extends Activity {
@@ -36,8 +29,7 @@ public class HistoriqueActivity extends Activity {
 	Button btn_Supprimer;
 	TextView textView;
 	ListView listView1;
-	
-		
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,49 +41,55 @@ public class HistoriqueActivity extends Activity {
 		HistFile = (HistoryFileManager) getIntent().getParcelableExtra(
 				MainActivity.PAR_KEY);
 		// Adding menuItems to ListView
-		//android.R.layout.activity_list_item;
+		// android.R.layout.activity_list_item;
 		ListAdapter adapter = new SimpleAdapter(this, HistFile.menuItems,
 				R.layout.list_application, new String[] {
-						HistFile.KEY_NOM_APPLICATION, HistFile.KEY_DATE_CREATION },
-				new int[] { R.id.textViewNameApplication, R.id.textViewDateCreation });
-		
+						HistFile.KEY_NOM_APPLICATION,
+						HistFile.KEY_DATE_CREATION },
+				new int[] { R.id.textViewNameApplication,
+						R.id.textViewDateCreation });
+
 		listView1.setAdapter(adapter);
-		
+
 		listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
-				
-				HashMap<String, String> o = (HashMap<String, String>) listView1.getItemAtPosition(position);
-				
-				String msg = "Nom Application : "+ o.get(HistFile.KEY_NOM_APPLICATION)+"\n"+
-								"Date création : "+ o.get(HistFile.KEY_DATE_CREATION)+"\n"+
-								"Version SDK :"+ o.get(HistFile.KEY_VERSION_SDK)+"\n"+
-								"Description :"+ o.get(HistFile.KEY_DESCRIPTION)+"\n"+
-								"Services :";
-				if (o.get(HistFile.KEY_CALCULATRICE).compareTo("0")!=0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_CALCULATRICE); 
-				
-				if (o.get(HistFile.KEY_CALENDRIER).compareTo("0")!=0)
+
+				HashMap<String, String> o = (HashMap<String, String>) listView1
+						.getItemAtPosition(position);
+
+				String msg = "Nom Application : "
+						+ o.get(HistFile.KEY_NOM_APPLICATION) + "\n"
+						+ "Date création : "
+						+ o.get(HistFile.KEY_DATE_CREATION) + "\n"
+						+ "Version SDK :" + o.get(HistFile.KEY_VERSION_SDK)
+						+ "\n" + "Description :"
+						+ o.get(HistFile.KEY_DESCRIPTION) + "\n" + "Services :";
+				if (o.get(HistFile.KEY_CALCULATRICE).compareTo("0") != 0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_CALCULATRICE);
+
+				if (o.get(HistFile.KEY_CALENDRIER).compareTo("0") != 0)
 					msg = msg + "\n  -" + o.get(HistFile.KEY_CALENDRIER);
-				
-				if (o.get(HistFile.KEY_MESSAGERIE).compareTo("0")!=0)
+
+				if (o.get(HistFile.KEY_MESSAGERIE).compareTo("0") != 0)
 					msg = msg + "\n  -" + o.get(HistFile.KEY_MESSAGERIE);
-				
-				if (o.get(HistFile.KEY_REPARTOIRE).compareTo("0")!=0)
+
+				if (o.get(HistFile.KEY_REPARTOIRE).compareTo("0") != 0)
 					msg = msg + "\n  -" + o.get(HistFile.KEY_REPARTOIRE);
-				
-				if (o.get(HistFile.KEY_LOCALISATION).compareTo("0")!=0)
+
+				if (o.get(HistFile.KEY_LOCALISATION).compareTo("0") != 0)
 					msg = msg + "\n  -" + o.get(HistFile.KEY_LOCALISATION);
-					
-				if (o.get(HistFile.KEY_APPEL).compareTo("0")!=0)
+
+				if (o.get(HistFile.KEY_APPEL).compareTo("0") != 0)
 					msg = msg + "\n  -" + o.get(HistFile.KEY_APPEL);
-				
-				if (o.get(HistFile.KEY_CREDIT).compareTo("0")!=0)
+
+				if (o.get(HistFile.KEY_CREDIT).compareTo("0") != 0)
 					msg = msg + "\n  -" + o.get(HistFile.KEY_CREDIT);
-				
-				AlertDialog.Builder builder = new AlertDialog.Builder(HistoriqueActivity.this);
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						HistoriqueActivity.this);
 
 				DialogInterface.OnClickListener listenerYes = new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -110,7 +108,7 @@ public class HistoriqueActivity extends Activity {
 				AlertDialog d = builder.create();
 				d.setTitle("Informations");
 				d.show();
- 
+
 			}
 
 		});
@@ -179,7 +177,6 @@ public class HistoriqueActivity extends Activity {
 		btn_Supprimer = (Button) findViewById(R.id.bntSupprimer);
 		textView = (TextView) findViewById(R.id.textView);
 		listView1 = (ListView) findViewById(R.id.listView1);
-		
 
 	}
 
