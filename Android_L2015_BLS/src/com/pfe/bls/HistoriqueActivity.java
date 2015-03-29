@@ -118,6 +118,7 @@ public class HistoriqueActivity extends Activity {
 
 		});
 		
+		
 		//récupération du bouton delete d'un item
 		/*Button btn_DeleteItem = (Button)findViewById(R.id.buttonDeleteItem);
 		
