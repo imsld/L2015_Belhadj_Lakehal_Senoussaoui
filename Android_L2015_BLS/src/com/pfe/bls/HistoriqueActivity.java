@@ -23,6 +23,7 @@ public class HistoriqueActivity extends Activity {
 
 	private HistoryFileManager HistFile;
 	Intent myintent;
+	HashMap<String, String> Info;
 
 	Button btn_Retour;
 	Button btn_Actualiser;
@@ -50,49 +51,53 @@ public class HistoriqueActivity extends Activity {
 						R.id.textViewDateCreation });
 
 		listView1.setAdapter(adapter);
-
+		
 		listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
 
-				HashMap<String, String> o = (HashMap<String, String>) listView1
+				Info = (HashMap<String, String>) listView1
 						.getItemAtPosition(position);
 
 				String msg = "Nom Application : "
-						+ o.get(HistFile.KEY_NOM_APPLICATION) + "\n"
+						+ Info.get(HistFile.KEY_NOM_APPLICATION) + "\n"
 						+ "Date création : "
-						+ o.get(HistFile.KEY_DATE_CREATION) + "\n"
-						+ "Version SDK :" + o.get(HistFile.KEY_VERSION_SDK)
+						+ Info.get(HistFile.KEY_DATE_CREATION) + "\n"
+						+ "Version SDK :" + Info.get(HistFile.KEY_VERSION_SDK)
 						+ "\n" + "Description :"
-						+ o.get(HistFile.KEY_DESCRIPTION) + "\n" + "Services :";
-				if (o.get(HistFile.KEY_CALCULATRICE).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_CALCULATRICE);
+						+ Info.get(HistFile.KEY_DESCRIPTION) + "\n"
+						+ "Services :";
+				if (Info.get(HistFile.KEY_CALCULATRICE).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_CALCULATRICE);
 
-				if (o.get(HistFile.KEY_CALENDRIER).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_CALENDRIER);
+				if (Info.get(HistFile.KEY_CALENDRIER).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_CALENDRIER);
 
-				if (o.get(HistFile.KEY_MESSAGERIE).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_MESSAGERIE);
+				if (Info.get(HistFile.KEY_MESSAGERIE).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_MESSAGERIE);
 
-				if (o.get(HistFile.KEY_REPARTOIRE).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_REPARTOIRE);
+				if (Info.get(HistFile.KEY_REPARTOIRE).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_REPARTOIRE);
 
-				if (o.get(HistFile.KEY_LOCALISATION).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_LOCALISATION);
+				if (Info.get(HistFile.KEY_LOCALISATION).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_LOCALISATION);
 
-				if (o.get(HistFile.KEY_APPEL).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_APPEL);
+				if (Info.get(HistFile.KEY_APPEL).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_APPEL);
 
-				if (o.get(HistFile.KEY_CREDIT).compareTo("0") != 0)
-					msg = msg + "\n  -" + o.get(HistFile.KEY_CREDIT);
+				if (Info.get(HistFile.KEY_CREDIT).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_CREDIT);
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						HistoriqueActivity.this);
 
 				DialogInterface.OnClickListener listenerYes = new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						int code = Integer.parseInt(Info.get(HistFile.KEY_ID));
+						setResult(code);
+						HistoriqueActivity.this.finish();
 					}
 				};
 
@@ -112,6 +117,51 @@ public class HistoriqueActivity extends Activity {
 			}
 
 		});
+		
+		//récupération du bouton delete d'un item
+		Button btn_DeleteItem = (Button)findViewById(R.id.buttonDeleteItem);
+		
+		btn_DeleteItem.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		/*btn_DeleteItem.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder builder1 = new AlertDialog.Builder(v
+						.getContext());
+
+				DialogInterface.OnClickListener listenerYes1 = new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//Traitement à faire
+						Toast.makeText(getApplicationContext(),
+								"Suppression réussie", Toast.LENGTH_SHORT)
+								.show();
+					}
+				};
+
+				DialogInterface.OnClickListener listenerNo1 = new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User cancelled the dialog
+					}
+				};
+
+				builder1.setMessage(R.string.supprimerApplication)
+						.setPositiveButton(R.string.yes, listenerYes1)
+						.setNegativeButton(R.string.no, listenerNo1);
+
+				AlertDialog d1 = builder1.create();
+				d1.setTitle("Supprimer application");
+				d1.show();
+
+			}
+		});*/
 
 	}
 
@@ -121,8 +171,8 @@ public class HistoriqueActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				myintent = new Intent(v.getContext(), MainActivity.class);
-				startActivity(myintent);
+				setResult(0);
+				HistoriqueActivity.this.finish();
 			}
 		});
 

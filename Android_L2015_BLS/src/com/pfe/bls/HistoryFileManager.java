@@ -50,141 +50,12 @@ public class HistoryFileManager implements Parcelable {
 
 	public ArrayList<HashMap<String, String>> menuItems;
 
-	public static final Creator<HistoryFileManager> CREATOR = new Creator<HistoryFileManager>() {
-		@Override
-		public HistoryFileManager createFromParcel(Parcel source) {
-			HistoryFileManager mHistFile = new HistoryFileManager();
-			mHistFile.filePath = source.readString();
-			mHistFile.menuItems = (ArrayList<HashMap<String, String>>) source
-					.readSerializable();
-			return mHistFile;
-		}
-
-		@Override
-		public HistoryFileManager[] newArray(int size) {
-			return new HistoryFileManager[size];
-		}
-	};
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel arg0, int arg1) {
-		// TODO Auto-generated method stub
-		arg0.writeString(filePath);
-		arg0.writeSerializable(menuItems);
-	}
-
-	private boolean checkHistoryFile() {
-		File xmlFileTest = new File(filePath);
-		if (xmlFileTest.isFile())
-			return true;
-		else
-			return false;
-	}
-
-	private void initXMLFile() {
-		if (xmlFile == null)
-			xmlFile = new File(filePath);
-	}
-
-	private void createXMLDocument() {
-
-		dbFactory = DocumentBuilderFactory.newInstance();
-		try {
-
-			dBuilder = dbFactory.newDocumentBuilder();
-			doc = dBuilder.newDocument();
-			Element racine = doc.createElement(KEY_RACINE);
-			doc.appendChild(racine);
-
-			writeInFile();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void writeInFile() {
-		// for output to file, console
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
-		Transformer transformer;
-
-		try {
-			transformer = transformerFactory.newTransformer();
-			// for pretty print
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			DOMSource source = new DOMSource(doc);
-
-			// write to console or file
-			StreamResult console = new StreamResult(System.out);
-			StreamResult file = new StreamResult(new File(filePath));
-
-			// write data
-			transformer.transform(source, console);
-			transformer.transform(source, file);
-
-			xmlFile = new File(filePath);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void ParseDocument() {
-		if (doc == null) {
-			dbFactory = DocumentBuilderFactory.newInstance();
-			try {
-				dBuilder = dbFactory.newDocumentBuilder();
-				doc = dBuilder.parse(xmlFile);
-				doc.getDocumentElement().normalize();
-
-				doc.getDocumentElement().normalize();
-				NodeList nList = doc.getElementsByTagName("Application");
-				Element nNode = (Element) nList.item(nList.getLength());
-				CurrentID = Integer.parseInt(nNode.getAttribute(KEY_ID));
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	private int getID() {
-		int maxID = 0;
-
-		if (getCountApplication() == 0)
-			return maxID+1;
-		else {
-			doc.getDocumentElement().normalize();
-			NodeList nList = doc.getElementsByTagName("Application");
-			for (int i = 0; i < nList.getLength(); i++) {
-				Element nNode = (Element) nList.item(i);
-				int localID = Integer.parseInt(nNode.getAttribute(KEY_ID));
-				if (localID > maxID)
-					maxID = localID;
-			}
-			return maxID + 1;
-		}
-	}
-
-	public void initXMLDocument() {
-		if (!checkHistoryFile()) {
-			createXMLDocument();
-		} else
-			initXMLFile();
-
-		ParseDocument();
-	}
-
 	public int getCurrentID() {
 		return CurrentID;
+	}
+	
+	public void setCurrentID(int ID){
+		this.CurrentID = ID;
 	}
 
 	public int getCountApplication() {
@@ -331,5 +202,144 @@ public class HistoryFileManager implements Parcelable {
 			// adding HashList to ArrayList
 			menuItems.add(map);
 		}
+	}
+	
+	private void initXMLFile() {
+		if (xmlFile == null)
+			xmlFile = new File(filePath);
+	}
+
+	private void createXMLDocument() {
+
+		dbFactory = DocumentBuilderFactory.newInstance();
+		try {
+
+			dBuilder = dbFactory.newDocumentBuilder();
+			doc = dBuilder.newDocument();
+			Element racine = doc.createElement(KEY_RACINE);
+			doc.appendChild(racine);
+
+			writeInFile();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void writeInFile() {
+		// for output to file, console
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
+		Transformer transformer;
+
+		try {
+			transformer = transformerFactory.newTransformer();
+			// for pretty print
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(doc);
+
+			// write to console or file
+			StreamResult console = new StreamResult(System.out);
+			StreamResult file = new StreamResult(new File(filePath));
+
+			// write data
+			transformer.transform(source, console);
+			transformer.transform(source, file);
+
+			xmlFile = new File(filePath);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void ParseDocument() {
+		if (doc == null) {
+			dbFactory = DocumentBuilderFactory.newInstance();
+			try {
+				dBuilder = dbFactory.newDocumentBuilder();
+				doc = dBuilder.parse(xmlFile);
+				doc.getDocumentElement().normalize();
+
+				doc.getDocumentElement().normalize();
+				NodeList nList = doc.getElementsByTagName("Application");
+				Element nNode = (Element) nList.item(nList.getLength());
+				CurrentID = Integer.parseInt(nNode.getAttribute(KEY_ID));
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private int getID() {
+		int maxID = 0;
+
+		if (getCountApplication() == 0)
+			return maxID+1;
+		else {
+			doc.getDocumentElement().normalize();
+			NodeList nList = doc.getElementsByTagName("Application");
+			for (int i = 0; i < nList.getLength(); i++) {
+				Element nNode = (Element) nList.item(i);
+				int localID = Integer.parseInt(nNode.getAttribute(KEY_ID));
+				if (localID > maxID)
+					maxID = localID;
+			}
+			return maxID + 1;
+		}
+	}
+
+	public void initXMLDocument() {
+		if (!checkHistoryFile()) {
+			createXMLDocument();
+		} else
+			initXMLFile();
+
+		ParseDocument();
+	}
+
+	//Partie obligatoire qui est relative au traitement de la sérialisation.
+	//Parcelable permet de faire passer des données entre les activité.
+	//En fait MainActivity.java instancie la classe HistoryFileManager.java et dans la 
+	//classe HistoryActivity.java on a spécifiquement besoin de la variable menuItems
+	//pour pouvoir afficher les info avec le ListView
+	
+	public static final Creator<HistoryFileManager> CREATOR = new Creator<HistoryFileManager>() {
+		@Override
+		public HistoryFileManager createFromParcel(Parcel source) {
+			HistoryFileManager mHistFile = new HistoryFileManager();
+			mHistFile.filePath = source.readString();
+			mHistFile.menuItems = (ArrayList<HashMap<String, String>>) source
+					.readSerializable();
+			return mHistFile;
+		}
+
+		@Override
+		public HistoryFileManager[] newArray(int size) {
+			return new HistoryFileManager[size];
+		}
+	};
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel arg0, int arg1) {
+		// TODO Auto-generated method stub
+		arg0.writeString(filePath);
+		arg0.writeSerializable(menuItems);
+	}
+
+	private boolean checkHistoryFile() {
+		File xmlFileTest = new File(filePath);
+		if (xmlFileTest.isFile())
+			return true;
+		else
+			return false;
 	}
 }

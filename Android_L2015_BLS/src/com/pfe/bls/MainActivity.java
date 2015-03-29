@@ -50,7 +50,10 @@ public class MainActivity extends Activity {
 
 	String myVersion;
 	int sdkVersion;
-	
+
+	int operation = 0; // operation = 0 : nouvelle ou initialisation, operation
+						// = CurrentID : Click Sur sauvegarde ou création
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,6 +65,53 @@ public class MainActivity extends Activity {
 			btn_HistApp.setEnabled(false);
 		else
 			btn_HistApp.setEnabled(true);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		// check if the request code is same as what is passed here it is 2
+		if (resultCode != 0) {
+			List<String> listInfo = new ArrayList<String>();
+			HistFile.setCurrentID(resultCode);
+			listInfo = HistFile.getCurrentApplication();
+
+			edit_AppName.setText(listInfo.get(1));
+
+			if (listInfo.get(2).compareTo("18")== 0)
+				rb_Api18.setChecked(true);
+			else if (listInfo.get(2).compareTo("19")== 0)
+				rb_Api19.setChecked(true);
+			else if (listInfo.get(2).compareTo("20")== 0)
+				rb_Api20.setChecked(true);
+			else {
+				rb_ApiLocal.isChecked();
+				rb_ApiLocal.setText(getAPIVersion());
+			}
+
+			edit_AppDescr.setText(listInfo.get(3));
+
+			if (listInfo.get(4).compareTo("0")!= 0)
+				cb_Calc.setChecked(true);
+
+			if (listInfo.get(5).compareTo("0")!= 0)
+				cb_Cal.setChecked(true);
+
+			if (listInfo.get(6).compareTo("0")!= 0)
+				cb_Msg.setChecked(true);
+
+			if (listInfo.get(7).compareTo("0")!= 0)
+				cb_Rep.setChecked(true);
+			
+			if (listInfo.get(8).compareTo("0")!= 0)
+				cb_GeoLoc.setChecked(true);
+
+			if (listInfo.get(9).compareTo("0")!= 0)
+				cb_Appel.setChecked(true);
+
+			if (listInfo.get(10).compareTo("0")!= 0)
+				cb_Credit.setChecked(true);
+		}
 	}
 
 	private void addButtonClickListner() {
@@ -88,6 +138,8 @@ public class MainActivity extends Activity {
 				// Getting device OS Version
 				rb_ApiLocal.setText(getAPIVersion());
 				rb_ApiLocal.setActivated(true);
+
+				operation = 0;
 			}
 		});
 
@@ -101,13 +153,8 @@ public class MainActivity extends Activity {
 				HistFile.putMenuItems();
 				mBundle.putParcelable(PAR_KEY, HistFile);
 				myintent.putExtras(mBundle);
-				startActivity(myintent);
-			}
-		});
 
-		btn_createApp.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+				startActivityForResult(myintent, operation);
 			}
 		});
 
@@ -116,12 +163,12 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				List<String> listInfo = new ArrayList<String>();
 				String dateCreation, heureCreation;
-				dateCreation = new SimpleDateFormat("dd/MM/yyyy")
-				.format(System.currentTimeMillis());
-				heureCreation =  new SimpleDateFormat("HH:mm:ss")
-						.format(System.currentTimeMillis());
+				dateCreation = new SimpleDateFormat("dd/MM/yyyy").format(System
+						.currentTimeMillis());
+				heureCreation = new SimpleDateFormat("HH:mm:ss").format(System
+						.currentTimeMillis());
 
-				listInfo.add(dateCreation+","+ heureCreation);
+				listInfo.add(dateCreation + "," + heureCreation);
 
 				listInfo.add(edit_AppName.getText().toString());
 
@@ -177,6 +224,15 @@ public class MainActivity extends Activity {
 					btn_HistApp.setEnabled(false);
 				else
 					btn_HistApp.setEnabled(true);
+
+				operation = HistFile.getCurrentID();
+			}
+		});
+
+		btn_createApp.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				operation = HistFile.getCurrentID();
 			}
 		});
 	}
