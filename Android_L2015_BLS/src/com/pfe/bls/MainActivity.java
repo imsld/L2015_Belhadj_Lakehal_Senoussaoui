@@ -93,24 +93,38 @@ public class MainActivity extends Activity {
 
 			if (listInfo.get(4).compareTo("0")!= 0)
 				cb_Calc.setChecked(true);
+			else
+				cb_Calc.setChecked(false);
 
 			if (listInfo.get(5).compareTo("0")!= 0)
 				cb_Cal.setChecked(true);
+			else
+				cb_Cal.setChecked(false);
 
 			if (listInfo.get(6).compareTo("0")!= 0)
 				cb_Msg.setChecked(true);
+			else
+				cb_Msg.setChecked(false);
 
 			if (listInfo.get(7).compareTo("0")!= 0)
-				cb_Rep.setChecked(true);
-			
+				cb_Rep.setChecked(true);			
+			else
+			cb_Rep.setChecked(false);
+
 			if (listInfo.get(8).compareTo("0")!= 0)
 				cb_GeoLoc.setChecked(true);
+			else
+				cb_GeoLoc.setChecked(false);
 
 			if (listInfo.get(9).compareTo("0")!= 0)
 				cb_Appel.setChecked(true);
+			else
+				cb_Appel.setChecked(false);
 
 			if (listInfo.get(10).compareTo("0")!= 0)
 				cb_Credit.setChecked(true);
+			else
+				cb_Credit.setChecked(false);
 		}
 	}
 
