@@ -107,7 +107,6 @@ public class MainActivity extends Activity {
 				mBundle.putParcelable(PAR_KEY, HistFile);
 				myintent.putExtras(mBundle);
 				startActivity(myintent);
-				Log.i("ffffffff","aaaaaaaaaaaa");
 			}
 		});
 

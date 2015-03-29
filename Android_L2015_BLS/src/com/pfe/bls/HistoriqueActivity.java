@@ -1,5 +1,7 @@
 package com.pfe.bls;
 
+import java.util.HashMap;
+
 import org.w3c.dom.Document;
 
 import com.pfe.bls.R;
@@ -35,8 +37,7 @@ public class HistoriqueActivity extends Activity {
 	TextView textView;
 	ListView listView1;
 	
-	Bitmap bm;
-
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,10 +62,55 @@ public class HistoriqueActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parentAdapter, View view,
 					int position, long id) {
-				TextView clickedView = (TextView) view;
-				Log.i("dddddddddddd", Long.toString(id));
-				//parentAdapter.g
-				//HistFile.getCurrentApplication();
+				
+				HashMap<String, String> o = (HashMap<String, String>) listView1.getItemAtPosition(position);
+				
+				String msg = "Nom Application : "+ o.get(HistFile.KEY_NOM_APPLICATION)+"\n"+
+								"Date création : "+ o.get(HistFile.KEY_DATE_CREATION)+"\n"+
+								"Version SDK :"+ o.get(HistFile.KEY_VERSION_SDK)+"\n"+
+								"Description :"+ o.get(HistFile.KEY_DESCRIPTION)+"\n"+
+								"Services :";
+				if (o.get(HistFile.KEY_CALCULATRICE).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_CALCULATRICE); 
+				
+				if (o.get(HistFile.KEY_CALENDRIER).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_CALENDRIER);
+				
+				if (o.get(HistFile.KEY_MESSAGERIE).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_MESSAGERIE);
+				
+				if (o.get(HistFile.KEY_REPARTOIRE).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_REPARTOIRE);
+				
+				if (o.get(HistFile.KEY_LOCALISATION).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_LOCALISATION);
+					
+				if (o.get(HistFile.KEY_APPEL).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_APPEL);
+				
+				if (o.get(HistFile.KEY_CREDIT).compareTo("0")!=0)
+					msg = msg + "\n  -" + o.get(HistFile.KEY_CREDIT);
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(HistoriqueActivity.this);
+
+				DialogInterface.OnClickListener listenerYes = new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				};
+
+				DialogInterface.OnClickListener listenerNo = new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				};
+
+				builder.setMessage(msg)
+						.setPositiveButton(R.string.SelectYes, listenerYes)
+						.setNegativeButton(R.string.SelectNo, listenerNo);
+
+				AlertDialog d = builder.create();
+				d.setTitle("Informations");
+				d.show();
+ 
 			}
 
 		});
@@ -118,7 +164,6 @@ public class HistoriqueActivity extends Activity {
 				AlertDialog d = builder.create();
 				d.setTitle("Supprimer historique");
 				d.show();
-
 			}
 		});
 
