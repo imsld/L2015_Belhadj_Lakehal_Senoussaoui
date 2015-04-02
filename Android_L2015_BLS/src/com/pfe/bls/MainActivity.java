@@ -1,15 +1,17 @@
 package com.pfe.bls;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,6 +61,8 @@ public class MainActivity extends Activity {
 
 	String myVersion;
 	int sdkVersion;
+	
+	int wait=1;
 
 	int operation = 0; // operation = 0 : nouvelle ou initialisation, operation
 						// = CurrentID : Click Sur sauvegarde ou création
@@ -255,6 +259,8 @@ public class MainActivity extends Activity {
 		btn_createApp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				wait=1;
+				launchRingDialog();
 				nom_application = edit_AppName.getText().toString();
 				description_application = edit_AppDescr.getText().toString();
 				String_IP = edit_ip.getText().toString();
@@ -275,6 +281,8 @@ public class MainActivity extends Activity {
 					public void run() {
 						try {
 							EnvoyerFichierXml.lancer();
+							
+							Recevoire_apk_nv_app();
 						} catch (UnknownHostException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -288,6 +296,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+	
 		btn_go_to_mail.setOnClickListener(new OnClickListener() {
 			 
 			@Override
@@ -309,6 +318,7 @@ public class MainActivity extends Activity {
 		btn_saveApp = (Button) findViewById(R.id.btnSaveField);
 		btn_createApp = (Button) findViewById(R.id.btnCreatApplication);
 		btn_go_to_mail = (Button) findViewById(R.id.mail);
+		
 		
 		edit_AppName = (EditText) findViewById(R.id.editTextAppName);
 		edit_AppDescr = (EditText) findViewById(R.id.editTextAppDescr);
@@ -354,5 +364,61 @@ public class MainActivity extends Activity {
 		sdkVersion = android.os.Build.VERSION.SDK_INT; // e.g. sdkVersion := 8;
 		return "API " + sdkVersion + ", version " + myVersion + " (local API)";
 	}
+	
+	private void launchRingDialog() {
+		final ProgressDialog ringProgressDialog = ProgressDialog.show(MainActivity.this, "Please wait ...",	"Downloading application ...", true);
+		ringProgressDialog.setCancelable(true);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					
+					
+					while(wait==1);
+				} catch (Exception e) {
 
+				}
+				ringProgressDialog.dismiss();
+				
+			}
+		}).start();
+	}
+
+private void Recevoire_apk_nv_app() {
+		
+		new Thread(new Runnable() {
+	        @Override
+	        public void run() {
+	        	//
+				//on supprime l'ancien apk
+				suprim_apk("/data/data/com.pfe.bls/app.apk");
+				
+	        	recevoire_apk_nv_app.lancer();
+	        	//ajouter la permission pour éxécuter le apk 
+			    Chmod.lancer("/data/data/com.pfe.bls/app.apk");
+			    wait=0;
+			    //lancer l'instalation du apk
+				installer_apk("/data/data/com.pfe.bls/app.apk");
+				
+				
+	        }
+	    }).start();
+	}
+
+
+
+private void suprim_apk(String path){
+	File file = new File(path);
+	if(file.exists()){
+	boolean supp = file.delete();}
+}
+
+private void installer_apk(String path){
+	
+	
+	Intent intent = new Intent(Intent.ACTION_VIEW);
+	intent.setDataAndType(Uri.fromFile(new File(path)),"application/vnd.android.package-archive");
+	startActivity(intent);
+	
+}
 }
