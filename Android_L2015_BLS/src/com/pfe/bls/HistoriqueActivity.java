@@ -120,50 +120,50 @@ public class HistoriqueActivity extends Activity {
 		
 		
 		//récupération du bouton delete d'un item
-		/*Button btn_DeleteItem = (Button)findViewById(R.id.buttonDeleteItem);
-		
-		btn_DeleteItem.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-			}
-		});*/
-		
-		/*btn_DeleteItem.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder builder1 = new AlertDialog.Builder(v
-						.getContext());
-
-				DialogInterface.OnClickListener listenerYes1 = new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						//Traitement à faire
-						Toast.makeText(getApplicationContext(),
-								"Suppression réussie", Toast.LENGTH_SHORT)
-								.show();
-					}
-				};
-
-				DialogInterface.OnClickListener listenerNo1 = new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// User cancelled the dialog
-					}
-				};
-
-				builder1.setMessage(R.string.supprimerApplication)
-						.setPositiveButton(R.string.yes, listenerYes1)
-						.setNegativeButton(R.string.no, listenerNo1);
-
-				AlertDialog d1 = builder1.create();
-				d1.setTitle("Supprimer application");
-				d1.show();
-
-			}
-		});*/
-
+//		Button btn_DeleteItem = (Button)findViewById(R.id.buttonDeleteItem);
+//		
+//		btn_DeleteItem.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
+//		
+//		btn_DeleteItem.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				AlertDialog.Builder builder1 = new AlertDialog.Builder(v
+//						.getContext());
+//
+//				DialogInterface.OnClickListener listenerYes1 = new DialogInterface.OnClickListener() {
+//					public void onClick(DialogInterface dialog, int id) {
+//						//Traitement à faire
+//						Toast.makeText(getApplicationContext(),
+//								"Suppression réussie", Toast.LENGTH_SHORT)
+//								.show();
+//					}
+//				};
+//
+//				DialogInterface.OnClickListener listenerNo1 = new DialogInterface.OnClickListener() {
+//					public void onClick(DialogInterface dialog, int id) {
+//						// User cancelled the dialog
+//					}
+//				};
+//
+//				builder1.setMessage(R.string.supprimerApplication)
+//						.setPositiveButton(R.string.yes, listenerYes1)
+//						.setNegativeButton(R.string.no, listenerNo1);
+//
+//				AlertDialog d1 = builder1.create();
+//				d1.setTitle("Supprimer application");
+//				d1.show();
+//
+//			}
+//		});
+//
 	}
 
 	private void addButtonClickListner() {

@@ -1,5 +1,8 @@
 package com.pfe.bls;
 
+
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,11 @@ import android.widget.RadioGroup;
 @SuppressLint("SdCardPath")
 public class MainActivity extends Activity {
 
+	static String nom_application,api,string_messagerie,string_repertoire,string_calculatrice,string_calendrier,string_mms;
+	static String string_phone,string_gallery,description_application,String_IP;
+
+	
+	
 	public final static String PAR_KEY = "com.pfe.bls.par";
 
 	HistoryFileManager HistFile = new HistoryFileManager();
@@ -30,10 +38,11 @@ public class MainActivity extends Activity {
 	Button btn_HistApp;
 	Button btn_saveApp;
 	Button btn_createApp;
-
+	Button btn_go_to_mail;
+	
 	EditText edit_AppName;
 	EditText edit_AppDescr;
-
+    EditText edit_ip;
 	RadioGroup rb_Group_API;
 	RadioButton rb_ApiLocal;
 	RadioButton rb_Api18;
@@ -44,9 +53,9 @@ public class MainActivity extends Activity {
 	CheckBox cb_Cal;
 	CheckBox cb_Msg;
 	CheckBox cb_Rep;
-	CheckBox cb_GeoLoc;
+	CheckBox cb_Mms;
 	CheckBox cb_Appel;
-	CheckBox cb_Credit;
+	CheckBox cb_Galerie;
 
 	String myVersion;
 	int sdkVersion;
@@ -112,9 +121,9 @@ public class MainActivity extends Activity {
 			cb_Rep.setChecked(false);
 
 			if (listInfo.get(8).compareTo("0")!= 0)
-				cb_GeoLoc.setChecked(true);
+				cb_Mms.setChecked(true);
 			else
-				cb_GeoLoc.setChecked(false);
+				cb_Mms.setChecked(false);
 
 			if (listInfo.get(9).compareTo("0")!= 0)
 				cb_Appel.setChecked(true);
@@ -122,9 +131,9 @@ public class MainActivity extends Activity {
 				cb_Appel.setChecked(false);
 
 			if (listInfo.get(10).compareTo("0")!= 0)
-				cb_Credit.setChecked(true);
+				cb_Galerie.setChecked(true);
 			else
-				cb_Credit.setChecked(false);
+				cb_Galerie.setChecked(false);
 		}
 	}
 
@@ -140,9 +149,9 @@ public class MainActivity extends Activity {
 				cb_Cal.setChecked(false);
 				cb_Msg.setChecked(false);
 				cb_Rep.setChecked(false);
-				cb_GeoLoc.setChecked(false);
+				cb_Mms.setChecked(false);
 				cb_Appel.setChecked(false);
-				cb_Credit.setChecked(false);
+				cb_Galerie.setChecked(false);
 			}
 		});
 
@@ -217,7 +226,7 @@ public class MainActivity extends Activity {
 				else
 					listInfo.add("0");
 
-				if (cb_GeoLoc.isChecked())
+				if (cb_Mms.isChecked())
 					listInfo.add(HistFile.KEY_LOCALISATION);
 				else
 					listInfo.add("0");
@@ -227,7 +236,7 @@ public class MainActivity extends Activity {
 				else
 					listInfo.add("0");
 
-				if (cb_Credit.isChecked())
+				if (cb_Galerie.isChecked())
 					listInfo.add(HistFile.KEY_CREDIT);
 				else
 					listInfo.add("0");
@@ -246,9 +255,51 @@ public class MainActivity extends Activity {
 		btn_createApp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				operation = HistFile.getCurrentID();
+				nom_application = edit_AppName.getText().toString();
+				description_application = edit_AppDescr.getText().toString();
+				String_IP = edit_ip.getText().toString();
+				if(cb_Calc.isChecked())string_calculatrice="1"; else string_calculatrice="0";
+				if(cb_Cal.isChecked())string_calendrier="1"; else string_calendrier ="0";
+				if(cb_Msg.isChecked())string_messagerie="1"; else string_messagerie="0";
+				if(cb_Rep.isChecked())string_repertoire="1"; else string_repertoire = "0";
+				if(cb_Mms.isChecked())string_mms="1"; else string_mms="0";
+				if(cb_Appel.isChecked())string_phone="1"; else string_phone = "0";
+				if(cb_Galerie.isChecked())string_gallery="1"; else string_gallery = "0";
+				if(rb_ApiLocal.isChecked())api=Integer.toString(sdkVersion);
+				else if (rb_Api18.isChecked())api="18";
+				     else if(rb_Api19.isChecked())api="19";
+				           else if(rb_Api20.isChecked())api="20";
+				Xml_a_envoyer.cree();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							EnvoyerFichierXml.lancer();
+						} catch (UnknownHostException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					}
+				}).start();
 			}
 		});
+		
+		btn_go_to_mail.setOnClickListener(new OnClickListener() {
+			 
+			@Override
+			public void onClick(View v) {
+ 
+			    Intent intent3 = new Intent(MainActivity.this, Act3.class);
+                            startActivity(intent3);   
+ 
+			}
+ 
+		});
+		
 	}
 
 	private void initInterface() {
@@ -257,9 +308,11 @@ public class MainActivity extends Activity {
 		btn_HistApp = (Button) findViewById(R.id.btnShowHistory);
 		btn_saveApp = (Button) findViewById(R.id.btnSaveField);
 		btn_createApp = (Button) findViewById(R.id.btnCreatApplication);
-
+		btn_go_to_mail = (Button) findViewById(R.id.mail);
+		
 		edit_AppName = (EditText) findViewById(R.id.editTextAppName);
 		edit_AppDescr = (EditText) findViewById(R.id.editTextAppDescr);
+		edit_ip = (EditText) findViewById(R.id.editTextip);
 
 		rb_Group_API = (RadioGroup) findViewById(R.id.radioGroupAPI);
 		rb_ApiLocal = (RadioButton) findViewById(R.id.radioApiLocal);
@@ -271,9 +324,9 @@ public class MainActivity extends Activity {
 		cb_Cal = (CheckBox) findViewById(R.id.checkBoxCal);
 		cb_Msg = (CheckBox) findViewById(R.id.checkBoxMsg);
 		cb_Rep = (CheckBox) findViewById(R.id.checkBoxRep);
-		cb_GeoLoc = (CheckBox) findViewById(R.id.checkBoxGeoLoc);
+		cb_Mms = (CheckBox) findViewById(R.id.checkBoxMms);
 		cb_Appel = (CheckBox) findViewById(R.id.checkBoxAppel);
-		cb_Credit = (CheckBox) findViewById(R.id.checkBoxCredi);
+		cb_Galerie = (CheckBox) findViewById(R.id.checkBoxGalerie);
 	}
 
 	@Override

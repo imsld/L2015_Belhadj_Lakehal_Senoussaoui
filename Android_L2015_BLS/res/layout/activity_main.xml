@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.pfe.bls.MainActivity" >
 
-    <!-- android:background="@drawable/images5" -->
+  
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -19,7 +19,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical" 
+            android:background="@drawable/image2">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,10 +165,10 @@
                             android:text="Repertoire" />
 
                         <CheckBox
-                            android:id="@+id/checkBoxGeoLoc"
+                            android:id="@+id/checkBoxMms"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Géolocalisation" />
+                            android:text="Mms" />
 
                         <CheckBox
                             android:id="@+id/checkBoxAppel"
@@ -176,14 +177,31 @@
                             android:text="Appel" />
 
                         <CheckBox
-                            android:id="@+id/checkBoxCredi"
+                            android:id="@+id/checkBoxGalerie"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Consultation crédit" />
+                            android:text="Galerie" />
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
-
+                   <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Introduisez l adresse IP du serveur"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                 <EditText
+                    android:id="@+id/editTextip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.39"
+                    android:ems="10"
+                    android:inputType="textLongMessage" />
+                 </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -202,6 +220,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/btn_createApplication" />
+                <Button
+        android:id="@+id/mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ecrivez nous par e-mail" />
             </LinearLayout>
 
         </LinearLayout>
