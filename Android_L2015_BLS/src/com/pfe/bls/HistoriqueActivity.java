@@ -81,14 +81,14 @@ public class HistoriqueActivity extends Activity {
 				if (Info.get(HistFile.KEY_REPARTOIRE).compareTo("0") != 0)
 					msg = msg + "\n  - " + Info.get(HistFile.KEY_REPARTOIRE);
 
-				if (Info.get(HistFile.KEY_LOCALISATION).compareTo("0") != 0)
-					msg = msg + "\n  - " + Info.get(HistFile.KEY_LOCALISATION);
+				if (Info.get(HistFile.KEY_Mms).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_Mms);
 
 				if (Info.get(HistFile.KEY_APPEL).compareTo("0") != 0)
 					msg = msg + "\n  - " + Info.get(HistFile.KEY_APPEL);
 
-				if (Info.get(HistFile.KEY_CREDIT).compareTo("0") != 0)
-					msg = msg + "\n  - " + Info.get(HistFile.KEY_CREDIT);
+				if (Info.get(HistFile.KEY_Galerie).compareTo("0") != 0)
+					msg = msg + "\n  - " + Info.get(HistFile.KEY_Galerie);
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						HistoriqueActivity.this);

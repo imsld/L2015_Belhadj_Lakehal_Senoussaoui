@@ -23,7 +23,7 @@ public class recevoire_apk_nv_app extends MainActivity {
 
 	try {
 		//temp de traitement du serveur
-		Thread.sleep(10000);
+		Thread.sleep(30000);
 	} catch (InterruptedException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();

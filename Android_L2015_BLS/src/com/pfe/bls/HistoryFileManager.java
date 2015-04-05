@@ -35,9 +35,9 @@ public class HistoryFileManager implements Parcelable {
 	static final String KEY_CALENDRIER = "Calendrier";
 	static final String KEY_MESSAGERIE = "Messagerie";
 	static final String KEY_REPARTOIRE = "Repartoire";
-	static final String KEY_LOCALISATION = "Localisation";
+	static final String KEY_Mms = "Mms";
 	static final String KEY_APPEL = "Appel";
-	static final String KEY_CREDIT = "Credit";
+	static final String KEY_Galerie = "Galerie";
 
 	private String filePath = "/data/data/com.pfe.bls/historique.xml";
 	private File xmlFile = null;
@@ -108,7 +108,7 @@ public class HistoryFileManager implements Parcelable {
 		newChild_7.setTextContent(listInfo.get(7));
 		appliElement.appendChild(newChild_7);
 
-		Element newChild_8 = doc.createElement(KEY_LOCALISATION);
+		Element newChild_8 = doc.createElement(KEY_Mms);
 		newChild_8.setTextContent(listInfo.get(8));
 		appliElement.appendChild(newChild_8);
 
@@ -116,7 +116,7 @@ public class HistoryFileManager implements Parcelable {
 		newChild_9.setTextContent(listInfo.get(9));
 		appliElement.appendChild(newChild_9);
 
-		Element newChild_10 = doc.createElement(KEY_CREDIT);
+		Element newChild_10 = doc.createElement(KEY_Galerie);
 		newChild_10.setTextContent(listInfo.get(10));
 		appliElement.appendChild(newChild_10);
 
@@ -150,11 +150,11 @@ public class HistoryFileManager implements Parcelable {
 						.getTextContent());
 				listInfo.add(nNode.getElementsByTagName(KEY_REPARTOIRE).item(0)
 						.getTextContent());
-				listInfo.add(nNode.getElementsByTagName(KEY_LOCALISATION)
+				listInfo.add(nNode.getElementsByTagName(KEY_Mms)
 						.item(0).getTextContent());
 				listInfo.add(nNode.getElementsByTagName(KEY_APPEL).item(0)
 						.getTextContent());
-				listInfo.add(nNode.getElementsByTagName(KEY_CREDIT).item(0)
+				listInfo.add(nNode.getElementsByTagName(KEY_Galerie).item(0)
 						.getTextContent());
 			}
 		}
@@ -192,12 +192,12 @@ public class HistoryFileManager implements Parcelable {
 					.item(0).getTextContent());
 			map.put(KEY_REPARTOIRE, nNode.getElementsByTagName(KEY_REPARTOIRE)
 					.item(0).getTextContent());
-			map.put(KEY_LOCALISATION,
-					nNode.getElementsByTagName(KEY_LOCALISATION).item(0)
+			map.put(KEY_Mms,
+					nNode.getElementsByTagName(KEY_Mms).item(0)
 							.getTextContent());
 			map.put(KEY_APPEL, nNode.getElementsByTagName(KEY_APPEL).item(0)
 					.getTextContent());
-			map.put(KEY_CREDIT, nNode.getElementsByTagName(KEY_CREDIT).item(0)
+			map.put(KEY_Galerie, nNode.getElementsByTagName(KEY_Galerie).item(0)
 					.getTextContent());
 			// adding HashList to ArrayList
 			menuItems.add(map);

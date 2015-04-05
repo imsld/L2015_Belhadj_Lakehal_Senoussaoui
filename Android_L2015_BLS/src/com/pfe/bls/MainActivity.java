@@ -7,12 +7,14 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -138,8 +140,8 @@ public class MainActivity extends Activity {
 				cb_Galerie.setChecked(true);
 			else
 				cb_Galerie.setChecked(false);
-		}
-	}
+		}}
+	
 
 	private void addButtonClickListner() {
 		btn_newApp.setOnClickListener(new OnClickListener() {
@@ -231,7 +233,7 @@ public class MainActivity extends Activity {
 					listInfo.add("0");
 
 				if (cb_Mms.isChecked())
-					listInfo.add(HistFile.KEY_LOCALISATION);
+					listInfo.add(HistFile.KEY_Mms);
 				else
 					listInfo.add("0");
 
@@ -241,7 +243,7 @@ public class MainActivity extends Activity {
 					listInfo.add("0");
 
 				if (cb_Galerie.isChecked())
-					listInfo.add(HistFile.KEY_CREDIT);
+					listInfo.add(HistFile.KEY_Galerie);
 				else
 					listInfo.add("0");
 
@@ -253,8 +255,8 @@ public class MainActivity extends Activity {
 					btn_HistApp.setEnabled(true);
 
 				operation = HistFile.getCurrentID();
-			}
-		});
+			}});
+		
 
 		btn_createApp.setOnClickListener(new OnClickListener() {
 			@Override
@@ -292,10 +294,10 @@ public class MainActivity extends Activity {
 						}
 						
 					}
+				
 				}).start();
-			}
-		});
-		
+			
+			}});
 	
 		btn_go_to_mail.setOnClickListener(new OnClickListener() {
 			 
@@ -309,7 +311,7 @@ public class MainActivity extends Activity {
  
 		});
 		
-	}
+		}
 
 	private void initInterface() {
 		btn_newApp = (Button) findViewById(R.id.btnNewApplication);
@@ -400,6 +402,7 @@ private void Recevoire_apk_nv_app() {
 			    //lancer l'instalation du apk
 				installer_apk("/data/data/com.pfe.bls/app.apk");
 				
+					
 				
 	        }
 	    }).start();
@@ -421,4 +424,4 @@ private void installer_apk(String path){
 	startActivity(intent);
 	
 }
-}
+		}
